@@ -69,6 +69,11 @@ header nav button:hover {
   transition: transform 0.2s;
 }
 
+.card.Ivan {
+  background-image: linear-gradient(#8e44ad, #2ecc71);
+  color: #0800ff;
+}
+
 .card:hover {
   transform: scale(1.05);
 }
@@ -82,6 +87,11 @@ h2 {
   display: none;
   margin-top: 10px;
   color: #555;
+}
+
+.bio.Ivan {
+  display: none;
+  color: #0037ff;
 }
 
 /* Button styling */
