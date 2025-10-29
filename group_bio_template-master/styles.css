@@ -89,6 +89,11 @@ h2 {
   color: #555;
 }
 
+.bio img {
+    height: 200px;
+    width: 200px;
+}
+
 .bio.Ivan {
   display: none;
   color: #0037ff;
