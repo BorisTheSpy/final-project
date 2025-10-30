@@ -1,14 +1,19 @@
+:root {
+    --body-height: calc(100vh - 345px);
+}
+
 /* General page styling */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  min-height: var(--body-height);
+  background-image: linear-gradient(#c3c3c3, #333);
   margin: 0;
   padding: 0;
 }
 
 /* Header section styling */
 header {
-  background: #333;
+  /*background: #333;*/
   color: #fff;
   padding: 10px 0;
   text-align: center;
@@ -55,6 +60,8 @@ header nav button:hover {
 
 .container.vision h2 {
   text-align: center;
+  margin-top: 15px;
+  text-decoration: underline;
 }
 
 /* Card styling for individual team bios */
