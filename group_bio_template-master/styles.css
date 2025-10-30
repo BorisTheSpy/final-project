@@ -9,6 +9,7 @@ body {
   background-image: linear-gradient(#333, #c3c3c3);
   margin: 0;
   padding: 0;
+  
 }
 
 /* Header section styling */
@@ -105,6 +106,18 @@ h2 {
 .bio.Ivan {
   display: none;
   color: #0037ff;
+}
+
+.bio.Ivan p.quote {
+    font-style: italic;
+    margin-bottom: -10px;
+    font-size: 13px;
+}
+
+.bio.Ivan p.author {
+    text-indent: 40px;
+    text-align: left;
+    font-size: 13px;
 }
 
 /* Button styling */
