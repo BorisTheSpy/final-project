@@ -151,3 +151,12 @@ button:hover {
 .bio.Zack {
     color: white;
 }
+
+.card.Gray {
+    background-image: linear-gradient(#1D13BD, #8625E6);
+  color: white;
+}
+
+.bio.Gray {
+    color: white;
+}
