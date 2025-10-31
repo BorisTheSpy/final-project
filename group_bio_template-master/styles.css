@@ -133,3 +133,21 @@ button {
 button:hover {
   background: #0056b3;
 }
+
+.bio-pic {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin: 10px auto;
+  display: block;
+}
+
+.card.Zack {
+    background-color: #008080;
+    color: white;
+}
+
+.bio.Zack {
+    color: white;
+}
