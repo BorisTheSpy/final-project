@@ -45,6 +45,10 @@ header nav button:hover {
   background: #0056b3;
 }
 
+#show-bios {
+    background: #cf2b41;
+}
+
 /* Flex container for team bios and vision sections */
 .container {
   width: 80%;
@@ -81,6 +85,10 @@ header nav button:hover {
 .card.Ivan {
   background-image: linear-gradient(#8e44ad, #2ecc71);
   color: #0800ff;
+}
+
+.card.Jake {
+    background-color: #ff8f75
 }
 
 .card:hover {

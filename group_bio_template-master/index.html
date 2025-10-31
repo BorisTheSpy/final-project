@@ -15,8 +15,8 @@
 
       <!-- Navigation menu to switch between sections -->
       <nav>
-        <button onclick="showSection('bios')">Our Team</button>
-        <button onclick="showSection('vision')">Our Vision</button>
+        <button id="show-bios" onclick="showSection('bios')">Our Team</button>
+        <button id="show-vision" onclick="showSection('vision')">Our Vision</button>
       </nav>
     </header>
     <main>
@@ -53,6 +53,15 @@
             <p id="bio3" class="bio">
             Emily is a UI/UX designer with a passion for creating user-friendly
             interfaces.
+            </p>
+        </div>
+            <div class="card Jake">
+            <h2>Jake Waltz</h2>
+            <p>Full Stack Developer</p>
+            <button onclick="toggleBio('bio4')">About Me</button>
+            <p id="bio4" class="bio">
+                <img src="img/jake-pic.png" alt="Jake at the Grand Canyon" class="bio-pic">
+            I have years of knowledge and experience with various frontend and the backend applications, including HTML, CSS, Javascript, SQL, SQLAlchemy, and FastAPI.
             </p>
         </div>
         </div>
