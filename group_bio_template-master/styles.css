@@ -1,5 +1,5 @@
 :root {
-    --body-height: calc(100vh - 345px);
+  --body-height: calc(100vh - 345px);
 }
 
 /* General page styling */
@@ -9,7 +9,6 @@ body {
   background-image: linear-gradient(#333, #c3c3c3);
   margin: 0;
   padding: 0;
-  
 }
 
 /* Header section styling */
@@ -18,6 +17,16 @@ header {
   color: #fff;
   padding: 10px 0;
   text-align: center;
+}
+
+h1 {
+  color: #171717;
+  background-color: #63667270;
+  width: 40%;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid #171717;
 }
 
 /* Styling for team logo image */
@@ -99,8 +108,8 @@ h2 {
 }
 
 .bio img {
-    height: 200px;
-    width: 200px;
+  height: 200px;
+  width: 200px;
 }
 
 .bio.Ivan {
@@ -109,15 +118,15 @@ h2 {
 }
 
 .bio.Ivan p.quote {
-    font-style: italic;
-    margin-bottom: -10px;
-    font-size: 13px;
+  font-style: italic;
+  margin-bottom: -10px;
+  font-size: 13px;
 }
 
 .bio.Ivan p.author {
-    text-indent: 40px;
-    text-align: left;
-    font-size: 13px;
+  text-indent: 40px;
+  text-align: left;
+  font-size: 13px;
 }
 
 /* Button styling */
@@ -144,19 +153,19 @@ button:hover {
 }
 
 .card.Zack {
-    background-color: #008080;
-    color: white;
+  background-color: #008080;
+  color: white;
 }
 
 .bio.Zack {
-    color: white;
+  color: white;
 }
 
 .card.Gray {
-    background-image: linear-gradient(#1D13BD, #8625E6);
+  background-image: linear-gradient(#1d13bd, #8625e6);
   color: white;
 }
 
 .bio.Gray {
-    color: white;
+  color: white;
 }
