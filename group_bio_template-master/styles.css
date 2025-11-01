@@ -169,3 +169,25 @@ button:hover {
 .bio.Gray {
   color: white;
 }
+
+.card.Natalie {
+  background-image: linear-gradient(#809848, #B0CA87);
+  color: white;
+}
+
+.bio.Natalie {
+  display: none;
+  color: #2E0014;
+}
+
+.bio.Natalie p.quote {
+  font-style: italic;
+  margin-bottom: -10px;
+  font-size: 13px;
+}
+
+.bio.Natalie p.author {
+  text-indent: 40px;
+  text-align: left;
+  font-size: 13px;
+}
