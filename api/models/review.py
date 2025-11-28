@@ -19,4 +19,4 @@ class Review(Base):
 
     # Relationships
     user = relationship("User", back_populates="reviews")
-    order = relationship("Order", back_populates="review")
+    orders = relationship("Order", back_populates="reviews")

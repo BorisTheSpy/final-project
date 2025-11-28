@@ -20,5 +20,5 @@ class Order(Base):
 
     order_details = relationship("OrderDetail", back_populates="orders")
     payment = relationship("Payment", uselist=False, back_populates="orders")
-    review = relationship("Review", uselist = False, back_populates="orders")
+    reviews = relationship("Review", uselist = False, back_populates="orders")
     user = relationship("User", back_populates="orders")
