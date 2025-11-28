@@ -1,0 +1,117 @@
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Menu Section Styles */
+.menu-section {
+  margin: 2rem 0;
+}
+
+.menu-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+#menu-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Menu Item Card Styles */
+.menu-item-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.menu-item-price {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Loading and Error States */
+.loading-message,
+.error-message,
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.loading-message {
+  color: #666;
+}
+
+.error-message {
+  color: #e74c3c;
+}
+
+.empty-message {
+  color: #999;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #menu-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .menu-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .menu-item-card {
+    padding: 1rem;
+  }
+
+  .menu-item-name {
+    font-size: 1.1rem;
+  }
+
+  .menu-item-price {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #menu-container {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 1rem;
+  }
+}
