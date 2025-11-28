@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Online Ordering System | Feedback</title>
+    <link rel="stylesheet" href="styles/default.css" />
+  </head>
+  <body>
+    <header data-include="components/header.html"></header>
+
+    <main>
+      <section class="feedback-section">
+        <h2>Leave Your Feedback!</h2>
+        <form id="feedback-form">
+          <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required />
+          </div>
+
+          <div class="form-group">
+            <label for="review">Your Review:</label>
+            <textarea id="review" name="review" rows="5" placeholder="Write your review here..." required></textarea>
+          </div>
+
+          <button type="submit">Submit Feedback</button>
+        </form>
+
+    <footer data-include="components/footer.html"></footer>
+
+    <script src="scripts/htmlInclude.js"></script>
+    <script>
+      const form = document.getElementById('feedback-form');
+      const feedbackList = document.getElementById('feedback-list');
+
+      form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value.trim();
+        const review = document.getElementById('review').value.trim();
+
+        if (name && review) {
+          const li = document.createElement('li');
+          li.innerHTML = `<strong>${name}:</strong> ${review}`;
+          feedbackList.appendChild(li);
+
+          form.reset();
+        }
+      });
+    </script>
+  </body>
+</html>
