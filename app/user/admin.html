@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Online Ordering System | Admin</title>
+    <link rel="stylesheet" href="styles/default.css" />
+    <style>
+      .hidden { display: none; }
+      table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+      th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+      th { background: #f4f4f4; }
+      button { margin: 0 0.2rem; }
+    </style>
+  </head>
+  <body>
+    <header data-include="components/header.html"></header>
+
+    <main>
+      <section class="admin-section">
+        <h2>Admin Panel</h2>
+
+        <!-- Password prompt -->
+        <div id="login-section">
+          <label for="admin-password">Enter Admin Password:</label>
+          <input type="password" id="admin-password" placeholder="Password" />
+          <button id="login-btn">Login</button>
+          <p id="login-error" style="color:red;"></p>
+        </div>
+
+        <!-- Admin content -->
+        <div id="admin-content" class="hidden">
+          <h3>Customer Feedback</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Review</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="feedback-table"></tbody>
+          </table>
+
+          <h3>Promo Code</h3>
+          <input type="text" id="promo-code" placeholder="Enter new promo code" />
+          <button id="save-promo">Save Promo Code</button>
+          <p>Current Promo Code: <span id="current-promo"></span></p>
+        </div>
+      </section>
+    </main>
+
+    <footer data-include="components/footer.html"></footer>
+
+    <script src="scripts/htmlInclude.js"></script>
+    <script>
+      // ======== Admin Authentication ========
+      const adminPassword = "admin123"; // Change to your secure password
+      const loginSection = document.getElementById('login-section');
+      const adminContent = document.getElementById('admin-content');
+      const loginBtn = document.getElementById('login-btn');
+      const loginError = document.getElementById('login-error');
+
+      loginBtn.addEventListener('click', () => {
+        const passwordInput = document.getElementById('admin-password').value;
+        if (passwordInput === adminPassword) {
+          loginSection.classList.add('hidden');
+          adminContent.classList.remove('hidden');
+          loadFeedback();
+          loadPromo();
+        } else {
+          loginError.textContent = "Incorrect password. Try again.";
+        }
+      });
+
+      // ======== Feedback Management ========
+      function loadFeedback() {
+        const feedbackTable = document.getElementById('feedback-table');
+        feedbackTable.innerHTML = '';
+        const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        feedbacks.forEach((fb, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${fb.name}</td>
+            <td>${fb.date}</td>
+            <td>${fb.review}</td>
+            <td>
+              <button onclick="editFeedback(${index})">Edit</button>
+              <button onclick="deleteFeedback(${index})">Delete</button>
+            </td>
+          `;
+          feedbackTable.appendChild(row);
+        });
+      }
+
+      window.deleteFeedback = function(index) {
+        const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        feedbacks.splice(index, 1);
+        localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+        loadFeedback();
+      }
+
+      window.editFeedback = function(index) {
+        const feedbacks = JSON.parse(localStorage.getItem('feedbacks') || '[]');
+        const newReview = prompt("Edit review:", feedbacks[index].review);
+        if (newReview !== null) {
+          feedbacks[index].review = newReview;
+          localStorage.setItem('feedbacks', JSON.stringify(feedbacks));
+          loadFeedback();
+        }
+      }
+
+      // ======== Promo Code Management ========
+      const promoInput = document.getElementById('promo-code');
+      const savePromoBtn = document.getElementById('save-promo');
+      const currentPromo = document.getElementById('current-promo');
+
+      function loadPromo() {
+        const code = localStorage.getItem('promoCode') || '';
+        currentPromo.textContent = code;
+      }
+
+      savePromoBtn.addEventListener('click', () => {
+        const newCode = promoInput.value.trim();
+        if (newCode) {
+          localStorage.setItem('promoCode', newCode);
+          currentPromo.textContent = newCode;
+          alert("Promo code updated!");
+        }
+      });
+    </script>
+  </body>
+</html>
