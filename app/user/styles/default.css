@@ -1,0 +1,154 @@
+/* Red and Black Color Theme */
+:root {
+  --color-primary-black: #000000;
+  --color-secondary-black: #1a1a1a;
+  --color-dark-gray: #2d2d2d;
+  --color-primary-red: #dc143c;
+  --color-dark-red: #8b0000;
+  --color-light-red: #ff4444;
+  --color-white: #ffffff;
+  --color-light-gray: #f5f5f5;
+  --color-medium-gray: #666666;
+}
+
+/* Base Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  background-color: var(--color-secondary-black);
+  color: var(--color-white);
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header nav a {
+  color: var(--color-white);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+header {
+  text-align: center;
+}
+
+header nav a:hover {
+  background-color: var(--color-light-red);
+}
+
+/* Menu Section Styles */
+.menu-section {
+  margin: 2rem 0;
+}
+
+.menu-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: var(--color-primary-red);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#menu-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Menu Item Card Styles */
+.menu-item-card {
+  background: var(--color-dark-gray);
+  border: 2px solid var(--color-primary-red);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(220, 20, 60, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.menu-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(220, 20, 60, 0.5);
+  border-color: var(--color-light-red);
+}
+
+.menu-item-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.menu-item-price {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-primary-red);
+  font-weight: bold;
+}
+
+/* Loading and Error States */
+.loading-message,
+.error-message,
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.loading-message {
+  color: var(--color-medium-gray);
+}
+
+.error-message {
+  color: var(--color-primary-red);
+}
+
+.empty-message {
+  color: var(--color-medium-gray);
+}
+
+footer {
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #menu-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .menu-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .menu-item-card {
+    padding: 1rem;
+  }
+
+  .menu-item-name {
+    font-size: 1.1rem;
+  }
+
+  .menu-item-price {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #menu-container {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    padding: 1rem;
+  }
+}
