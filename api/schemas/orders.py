@@ -6,6 +6,7 @@ from .order_details import OrderDetail
 
 
 class OrderBase(BaseModel):
+    customer_name: str
     user_id: int
     description: Optional[str] = None
 

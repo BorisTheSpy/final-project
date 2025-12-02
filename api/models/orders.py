@@ -11,6 +11,8 @@ class Order(Base):
 
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
+    customer_name = Column(String(500))
+
     description = Column(String(300))
 
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
@@ -18,7 +20,7 @@ class Order(Base):
     tracking_number = Column(String(50))
     status = Column(String(50), default="Placed")
 
-    order_details = relationship("OrderDetail", back_populates="order")
-    payment = relationship("Payment", uselist=False, back_populates="order")
-    review = relationship("Review", uselist=False, back_populates="order")
+    order_details = relationship("OrderDetail", back_populates="orders")
+    payment = relationship("Payment", uselist=False, back_populates="orders")
+    reviews = relationship("Review", uselist = False, back_populates="orders")
     user = relationship("User", back_populates="orders")

@@ -16,4 +16,4 @@ class Payment(Base):
     payment_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))
 
     # Relationship
-    order = relationship("Order", back_populates="payment")
+    orders = relationship("Order", back_populates="payment")
