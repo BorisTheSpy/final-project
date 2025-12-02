@@ -16,7 +16,7 @@ class OrderCreate(OrderBase):
 
 
 class OrderUpdate(BaseModel):
-    customer_name: Optional[str] = None
+    user_id: Optional[int] = None
     description: Optional[str] = None
 
 
