@@ -1,15 +1,9 @@
 from . import orders, order_details, recipes, sandwiches, resources
 from . import user, payment, review, promo
-from ..dependencies.database import engine
+from ..dependencies.database import engine, Base
 
 
 def index():
-    orders.Base.metadata.create_all(engine)
-    order_details.Base.metadata.create_all(engine)
-    recipes.Base.metadata.create_all(engine)
-    sandwiches.Base.metadata.create_all(engine)
-    resources.Base.metadata.create_all(engine)
-    user.Base.metadata.create_all(engine)
-    payment.Base.metadata.create_all(engine)
-    review.Base.metadata.create_all(engine)
-    promo.Base.metadata.create_all(engine)
+    # Import all models to register them with Base.metadata
+    # All models use the same Base instance from database.py
+    Base.metadata.create_all(engine)
