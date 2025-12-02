@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandwich Shop | Reviews</title>
+    <link rel="stylesheet" href="styles/default.css" />
+    <style>
+      .feedback-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #333;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .rating-input {
+        display: flex;
+        gap: 0.5rem;
+        font-size: 2rem;
+      }
+      .rating-input input {
+        display: none;
+      }
+      .rating-input label {
+        cursor: pointer;
+        color: #ddd;
+        transition: color 0.2s;
+      }
+      .rating-input input:checked ~ label,
+      .rating-input label:hover,
+      .rating-input label:hover ~ label {
+        color: #ffc107;
+      }
+      button[type="submit"] {
+        width: 100%;
+        padding: 1rem;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      button[type="submit"]:hover {
+        background: #5568d3;
+      }
+      .success-message {
+        background: #d4edda;
+        color: #155724;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        display: none;
+      }
+      .error-message {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        display: none;
+      }
+      .reviews-list {
+        margin-top: 3rem;
+      }
+      .review-card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin-bottom: 1rem;
+      }
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+      .review-rating {
+        color: #ffc107;
+        font-size: 1.2rem;
+      }
+      .review-date {
+        color: #666;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header data-include="components/header.html"></header>
+
+    <main>
+      <div class="feedback-container">
+        <h2>Leave a Review</h2>
+        <p>We value your feedback! Let us know about your experience.</p>
+
+        <div id="success-message" class="success-message"></div>
+        <div id="error-message" class="error-message"></div>
+
+        <form id="feedback-form">
+          <div class="form-group">
+            <label for="rating">Rating:</label>
+            <div class="rating-input">
+              <input type="radio" name="rating" id="star5" value="5" required />
+              <label for="star5">★</label>
+              <input type="radio" name="rating" id="star4" value="4" />
+              <label for="star4">★</label>
+              <input type="radio" name="rating" id="star3" value="3" />
+              <label for="star3">★</label>
+              <input type="radio" name="rating" id="star2" value="2" />
+              <label for="star2">★</label>
+              <input type="radio" name="rating" id="star1" value="1" />
+              <label for="star1">★</label>
+            </div>
+          </div>
+
+          <div class="form-group" id="order-select-group" style="display: none;">
+            <label for="order-id">Review for Order (optional):</label>
+            <select id="order-id" name="order_id">
+              <option value="">General Review</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="comment">Your Review:</label>
+            <textarea id="comment" name="comment" rows="5" placeholder="Tell us about your experience..." required></textarea>
+          </div>
+
+          <button type="submit">Submit Review</button>
+        </form>
+
+        <div class="reviews-list">
+          <h3>Recent Reviews</h3>
+          <div id="reviews-container">
+            <p>Loading reviews...</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer data-include="components/footer.html"></footer>
+
+    <script src="scripts/htmlInclude.js"></script>
+    <script src="scripts/auth.js"></script>
+    <script>
+      const API_URL = 'http://localhost:8000';
+      const form = document.getElementById('feedback-form');
+      const successMessage = document.getElementById('success-message');
+      const errorMessage = document.getElementById('error-message');
+
+      // Load user's orders if logged in
+      async function loadUserOrders() {
+        const user = getCurrentUser();
+        if (!user) return;
+
+        try {
+          const response = await fetch(`${API_URL}/orders/user/${user.id}`, {
+            headers: { 'Authorization': `Bearer ${user.token}` }
+          });
+          
+          if (response.ok) {
+            const orders = await response.json();
+            if (orders.length > 0) {
+              document.getElementById('order-select-group').style.display = 'block';
+              const orderSelect = document.getElementById('order-id');
+              orderSelect.innerHTML = '<option value="">General Review</option>' + 
+                orders.map(order => 
+                  `<option value="${order.id}">Order #${order.id} - ${new Date(order.order_date).toLocaleDateString()}</option>`
+                ).join('');
+            }
+          }
+        } catch (error) {
+          console.error('Error loading orders:', error);
+        }
+      }
+
+      // Load recent reviews
+      async function loadReviews() {
+        try {
+          const response = await fetch(`${API_URL}/reviews`);
+          const reviews = await response.json();
+          displayReviews(reviews);
+        } catch (error) {
+          console.error('Error loading reviews:', error);
+          document.getElementById('reviews-container').innerHTML = '<p>Unable to load reviews.</p>';
+        }
+      }
+
+      function displayReviews(reviews) {
+        const container = document.getElementById('reviews-container');
+        
+        if (reviews.length === 0) {
+          container.innerHTML = '<p>No reviews yet. Be the first to leave a review!</p>';
+          return;
+        }
+
+        container.innerHTML = reviews.map(review => `
+          <div class="review-card">
+            <div class="review-header">
+              <div>
+                <strong>${review.user ? review.user.name : 'Anonymous'}</strong>
+                <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5-review.rating)}</div>
+              </div>
+              <div class="review-date">${new Date(review.review_date).toLocaleDateString()}</div>
+            </div>
+            <p>${review.comment}</p>
+            ${review.order_id ? `<small style="color: #666;">Order #${review.order_id}</small>` : ''}
+          </div>
+        `).join('');
+      }
+
+      form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const user = getCurrentUser();
+        if (!user) {
+          showError('You must be logged in to leave a review.');
+          if (confirm('Would you like to login now?')) {
+            window.location.href = 'login.html?redirect=feedback.html';
+          }
+          return;
+        }
+
+        const rating = document.querySelector('input[name="rating"]:checked');
+        const orderId = document.getElementById('order-id').value;
+        const comment = document.getElementById('comment').value.trim();
+
+        if (!rating || !comment) {
+          showError('Please provide a rating and comment.');
+          return;
+        }
+
+        const reviewData = {
+          user_id: user.id,
+          order_id: orderId ? parseInt(orderId) : null,
+          rating: parseInt(rating.value),
+          comment: comment
+        };
+
+        try {
+          const response = await fetch(`${API_URL}/reviews`, {
+            method: 'POST',
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${user.token}`
+            },
+            body: JSON.stringify(reviewData)
+          });
+
+          if (response.ok) {
+            showSuccess('Thank you for your review! We appreciate your feedback.');
+            form.reset();
+            loadReviews();
+          } else {
+            throw new Error('Failed to submit review');
+          }
+        } catch (error) {
+          console.error('Error submitting review:', error);
+          showError('There was an error submitting your review. Please try again later.');
+        }
+      });
+
+      function showSuccess(message) {
+        successMessage.textContent = message;
+        successMessage.style.display = 'block';
+        errorMessage.style.display = 'none';
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 5000);
+      }
+
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+        successMessage.style.display = 'none';
+      }
+
+      // Initialize page
+      loadUserOrders();
+      loadReviews();
+    </script>
+  </body>
+</html>
