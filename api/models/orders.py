@@ -11,6 +11,8 @@ class Order(Base):
 
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
+    customer_name = Column(String(500))
+
     description = Column(String(300))
 
     order_date = Column(DATETIME, nullable=False, server_default=str(datetime.now()))

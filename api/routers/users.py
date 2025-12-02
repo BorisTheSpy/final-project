@@ -13,6 +13,6 @@ router = APIRouter(
 def get_all_reviews(db: Session = Depends(get_db)):
     return controller.read_all(db)
 
-@router.post("/", response_model=list[schema.User], tags=["Review"])
-def create_review(user: schema.UserCreate, db: Session = Depends(get_db)):
-    return controller.create(user=user, db=db)
+@router.post("/", response_model=list[schema.User])
+def create_review(request: schema.UserCreate, db: Session = Depends(get_db)):
+    return controller.create(request=request, db=db)
