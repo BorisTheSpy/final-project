@@ -5,7 +5,7 @@ from ..dependencies.database import Base
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrememnt=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
 
     name = Column(String(100), nullable=False)
     phone_number = Column(String(20))

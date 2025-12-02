@@ -164,7 +164,13 @@
         document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
         
-        event.target.classList.add('active');
+        // Find and activate the correct tab button
+        const tabButtons = document.querySelectorAll('.auth-tab');
+        tabButtons.forEach(btn => {
+          if (btn.textContent.trim() === (tab === 'login' ? 'Login' : 'Register')) {
+            btn.classList.add('active');
+          }
+        });
         document.getElementById(`${tab}-form`).classList.add('active');
         
         hideMessages();
