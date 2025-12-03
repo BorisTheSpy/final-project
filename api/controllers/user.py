@@ -21,17 +21,17 @@ def read_one(db: Session, item_id):
     return item
 
 def create(db: Session, request):
-    db_user = model.User(**request.model_dump())
+    new_item = model.User(**request.model_dump())
 
     try:
-        db.add(db_user)
+        db.add(new_item)
         db.commit()
-        db.refresh(db_user)
+        db.refresh(new_item)
     except SQLAlchemyError as e:
         error = str(e.__dict__['orig'])
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
 
-    return db_user
+    return new_item
 
 def update(db: Session, request, item_id):
     try:
