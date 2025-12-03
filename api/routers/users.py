@@ -13,27 +13,11 @@ router = APIRouter(
 def read_all(db: Session = Depends(get_db)):
     return controller.read_all(db)
 
-@router.post("/login", response_model=schema.LoginResponse)
-def login(request: schema.LoginRequest, db: Session = Depends(get_db)):
-    user = controller.login(db=db, email=request.email, password=request.password)
-    # Create LoginResponse by manually converting SQLAlchemy model to dict
-    # This avoids the model_validate issue with SQLAlchemy instances
-    user_dict = {
-        "id": user.id,
-        "name": user.name,
-        "phone_number": user.phone_number,
-        "address": user.address,
-        "email": user.email,
-        "role": user.role,
-        "token": str(user.id)
-    }
-    return schema.LoginResponse(**user_dict)
-
 @router.get("/{item_id}", response_model=schema.User)
 def read_one(item_id, db: Session = Depends(get_db)):
     return controller.read_one(db, item_id=item_id)
 
-@router.post("/", response_model=list[schema.User])
+@router.post("/", response_model=schema.User)
 def create(request: schema.UserCreate, db: Session = Depends(get_db)):
     return controller.create(request=request, db=db)
 
