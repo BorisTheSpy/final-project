@@ -5,11 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 def create(db: Session, request):
-    new_item = model.Payment(
-        customer_name=request.customer_name,
-        user_id=request.user_id,
-        description=request.description
-    )
+    new_item = model.Payment(**request.model_dump())
 
     try:
         db.add(new_item)

@@ -21,15 +21,7 @@ def read_one(db: Session, item_id):
     return item
 
 def create(db: Session, request):
-    db_user = model.User(
-        name=request.name,
-        phone_number=request.phone_number,
-        address=request.address,
-        email=request.email,
-        role=request.user_role,
-        password=request.password
-
-    )
+    db_user = model.User(**request.model_dump())
 
     try:
         db.add(db_user)

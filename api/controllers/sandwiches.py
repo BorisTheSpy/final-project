@@ -5,10 +5,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 
 def create(db: Session, request):
-    new_item = model.Sandwich(
-        sandwich_name=request.sandwich_name,
-        price=request.price
-    )
+    new_item = model.Sandwich(**request.model_dump())
 
     try:
         db.add(new_item)
