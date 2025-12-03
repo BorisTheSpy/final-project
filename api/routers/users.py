@@ -33,7 +33,7 @@ def login(request: schema.LoginRequest, db: Session = Depends(get_db)):
 def read_one(item_id, db: Session = Depends(get_db)):
     return controller.read_one(db, item_id=item_id)
 
-@router.post("/", response_model=list[schema.User])
+@router.post("/", response_model=schema.User)
 def create(request: schema.UserCreate, db: Session = Depends(get_db)):
     return controller.create(request=request, db=db)
 

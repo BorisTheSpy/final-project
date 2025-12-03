@@ -8,7 +8,7 @@ class UserBase(BaseModel):
     phone_number: Optional[str] = None
     address: Optional[str] = None
     email: EmailStr
-    role: Optional[str] = "Customer"
+    user_role: Optional[str] = "Customer"
 
 
 class UserCreate(UserBase):
