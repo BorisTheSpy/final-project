@@ -448,6 +448,11 @@
           const response = await fetch(`${API_URL}/orders`, {
             headers: { Authorization: `Bearer ${user.token}` },
           });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
           const orders = await response.json();
 
           const ordersTable = document.getElementById("orders-table");
@@ -462,11 +467,15 @@
               (order) => `
             <tr>
               <td>#${order.id}</td>
-              <td>${order.customer_name}</td>
-              <td>${new Date(order.order_date).toLocaleDateString()}</td>
-              <td><span class="status-badge status-${order.status.toLowerCase()}">${
-                order.status
-              }</span></td>
+              <td>${order.customer_name || "N/A"}</td>
+              <td>${
+                order.order_date
+                  ? new Date(order.order_date).toLocaleDateString()
+                  : "N/A"
+              }</td>
+              <td><span class="status-badge status-${(
+                order.status || "Placed"
+              ).toLowerCase()}">${order.status || "Placed"}</span></td>
               <td>$${calculateOrderTotal(order)}</td>
               <td>
                 <button class="action-btn view-btn" onclick="viewOrder(${
@@ -482,6 +491,9 @@
             .join("");
         } catch (error) {
           console.error("Error loading orders:", error);
+          const ordersTable = document.getElementById("orders-table");
+          ordersTable.innerHTML =
+            '<tr><td colspan="6" style="text-align: center; color: red;">Error loading orders. Check console for details.</td></tr>';
         }
       }
 
