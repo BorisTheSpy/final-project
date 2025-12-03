@@ -21,12 +21,7 @@ def read_one(db: Session, item_id):
     return item
 
 def create(db: Session, request):
-    db_review = model.Review(
-        rating=request.rating,
-        comment=request.comment,
-        user_id=request.user_id,
-        order_id=request.order_id
-    )
+    db_review = model.Review(**request.model_dump())
 
     try:
         db.add(db_review)
