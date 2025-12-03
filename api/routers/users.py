@@ -13,6 +13,22 @@ router = APIRouter(
 def get_all_reviews(db: Session = Depends(get_db)):
     return controller.read_all(db)
 
+@router.post("/login", response_model=schema.LoginResponse)
+def login(request: schema.LoginRequest, db: Session = Depends(get_db)):
+    user = controller.login(db=db, email=request.email, password=request.password)
+    # Create LoginResponse by manually converting SQLAlchemy model to dict
+    # This avoids the model_validate issue with SQLAlchemy instances
+    user_dict = {
+        "id": user.id,
+        "name": user.name,
+        "phone_number": user.phone_number,
+        "address": user.address,
+        "email": user.email,
+        "role": user.role,
+        "token": str(user.id)
+    }
+    return schema.LoginResponse(**user_dict)
+
 @router.get("/{item_id}", response_model=schema.User)
 def get_one_review(item_id, db: Session = Depends(get_db)):
     return controller.read_one(db, item_id=item_id)
