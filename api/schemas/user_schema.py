@@ -28,3 +28,12 @@ class User(UserBase):
 
     class ConfigDict:
         from_attributes = True
+
+
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+
+class LoginResponse(User):
+    token: str

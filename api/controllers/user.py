@@ -20,6 +20,21 @@ def read_one(db: Session, item_id):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
     return item
 
+def login(db: Session, email: str, password: str):
+    try:
+        user = db.query(model.User).filter(model.User.email == email).first()
+        if not user or user.password != password:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid email or password"
+            )
+        return user
+    except HTTPException:
+        raise
+    except SQLAlchemyError as e:
+        error = str(e.__dict__['orig'])
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=error)
+
 def create(db: Session, request):
     db_user = model.User(**request.model_dump())
 
