@@ -5,18 +5,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Restaurant Online Ordering System</title>
     <link rel="stylesheet" href="styles/default.css" />
+    <style>
+      .hero-section {
+        text-align: center;
+        padding: 3rem 1rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      .hero-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+      .hero-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      .cta-button {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background: white;
+        color: #667eea;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        transition: transform 0.2s;
+      }
+      .cta-button:hover {
+        transform: scale(1.05);
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 3rem 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .feature-card {
+        text-align: center;
+        padding: 2rem;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      .feature-card h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+      }
+    </style>
   </head>
   <body>
     <header data-include="components/header.html"></header>
+    
     <main>
-      <section class="menu-section">
-        <h2>Our Menu</h2>
-        <div id="menu-container"></div>
+      <section class="hero-section">
+        <h2>Welcome to Our Sandwich Shop!</h2>
+        <p>Fresh ingredients, made to order, delivered fast</p>
+        <a href="menu.html" class="cta-button">Order Now</a>
+      </section>
+
+      <section class="features">
+        <div class="feature-card">
+          <h3>🥖 Fresh Ingredients</h3>
+          <p>We use only the freshest locally-sourced ingredients in every sandwich</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Fast Delivery</h3>
+          <p>Your order delivered hot and fresh within 30 minutes</p>
+        </div>
+        <div class="feature-card">
+          <h3>🎨 Customize</h3>
+          <p>Build your perfect sandwich exactly how you like it</p>
+        </div>
       </section>
     </main>
-    <footer data-include="components/footer.html"></footer>
 
+    <footer data-include="components/footer.html"></footer>
     <script src="scripts/htmlInclude.js"></script>
-    <script src="scripts/menu.js"></script>
   </body>
 </html>
